@@ -89,7 +89,7 @@ target_compile_definitions(
     BOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE=1
 )
 
-target_compile_features(foxy PUBLIC cxx_std_14)
+target_compile_features(foxy PUBLIC cxx_generic_lambdas)
 
 target_include_directories(
   foxy
