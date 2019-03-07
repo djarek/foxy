@@ -59,6 +59,7 @@ add_library(
 
   ${CMAKE_CURRENT_SOURCE_DIR}/src/client_session.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/log.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/pct_encode.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/proxy.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/server_session.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/uri_parts.cpp
@@ -136,6 +137,7 @@ if (FOXY_TESTING)
     ${CMAKE_CURRENT_SOURCE_DIR}/test/client_session_test.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/test/export_connect_fields_test.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/test/main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/test/pct_encode_test.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/test/proxy_test.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/test/proxy_test2.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/test/relay_test.cpp
