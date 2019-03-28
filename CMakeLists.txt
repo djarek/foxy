@@ -12,10 +12,11 @@ cmake_minimum_required(VERSION 3.13)
 project(foxy LANGUAGES CXX)
 
 find_package(
-  Boost 1.69
-  REQUIRED
-    system
-    date_time
+  Boost 1.70
+  CONFIG REQUIRED
+  headers
+  system
+  date_time
 )
 
 find_package(OpenSSL REQUIRED)
@@ -117,8 +118,8 @@ if (FOXY_TESTING)
 
   find_package(Catch2 CONFIG REQUIRED)
   find_package(
-    Boost 1.69
-    REQUIRED
+    Boost 1.70
+    CONFIG REQUIRED
       coroutine
       thread
   )
