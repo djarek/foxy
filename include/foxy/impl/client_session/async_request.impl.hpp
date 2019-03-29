@@ -11,6 +11,7 @@
 #define FOXY_IMPL_CLIENT_SESSION_ASYNC_REQUEST_IMPL_HPP_
 
 #include <foxy/client_session.hpp>
+#include <boost/beast/core/handler_ptr.hpp>
 
 namespace foxy
 {
@@ -129,12 +130,12 @@ client_session::async_request(Request&         request,
 {
   boost::asio::async_completion<RequestHandler, void(boost::system::error_code)> init(handler);
 
-  detail::timed_op_wrapper<
-    boost::asio::ip::tcp::socket, detail::request_op,
-    typename boost::asio::async_completion<
-      RequestHandler, void(boost::system::error_code)>::completion_handler_type,
-    void(boost::system::error_code)>(*this, std::move(init.completion_handler))
-    .template init<Request, ResponseParser>(request, parser);
+  // detail::timed_op_wrapper<
+  //   boost::asio::ip::tcp::socket, detail::request_op,
+  //   typename boost::asio::async_completion<
+  //     RequestHandler, void(boost::system::error_code)>::completion_handler_type,
+  //   void(boost::system::error_code)>(*this, std::move(init.completion_handler))
+  //   .template init<Request, ResponseParser>(request, parser);
 
   return init.result.get();
 }

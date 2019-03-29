@@ -36,11 +36,6 @@ add_library(
   ${CMAKE_CURRENT_SOURCE_DIR}/include/foxy/impl/client_session/async_connect.impl.hpp
   ${CMAKE_CURRENT_SOURCE_DIR}/include/foxy/impl/client_session/async_request.impl.hpp
 
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/foxy/impl/session/async_read_header.impl.hpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/foxy/impl/session/async_read.impl.hpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/foxy/impl/session/async_write_header.impl.hpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/foxy/impl/session/async_write.impl.hpp
-
   ${CMAKE_CURRENT_SOURCE_DIR}/include/foxy/impl/session.impl.hpp
   ${CMAKE_CURRENT_SOURCE_DIR}/include/foxy/impl/shared_handler_ptr.impl.hpp
 
@@ -88,6 +83,7 @@ target_compile_definitions(
   PUBLIC
     BOOST_COROUTINES_NO_DEPRECATION_WARNING=1
     BOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE=1
+    BOOST_BEAST_ALLOW_DEPRECATED=1
 )
 
 target_compile_features(foxy PUBLIC cxx_std_14)
