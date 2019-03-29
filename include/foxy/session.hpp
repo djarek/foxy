@@ -13,7 +13,6 @@
 #include <foxy/multi_stream.hpp>
 
 #include <boost/asio/async_result.hpp>
-#include <boost/asio/steady_timer.hpp>
 #include <boost/asio/ssl/context.hpp>
 
 #include <boost/beast/http/read.hpp>
@@ -36,12 +35,10 @@ struct basic_session
 public:
   using stream_type = ::foxy::basic_multi_stream<Stream>;
   using buffer_type = boost::beast::flat_buffer;
-  using timer_type  = boost::asio::steady_timer;
 
   session_opts opts;
   stream_type  stream;
   buffer_type  buffer;
-  timer_type   timer;
 
   basic_session()                     = delete;
   basic_session(basic_session const&) = delete;
@@ -57,32 +54,30 @@ public:
 
   template <class Parser, class ReadHandler>
   auto
-  async_read_header(Parser& parser, ReadHandler&& handler) & -> BOOST_ASIO_INITFN_RESULT_TYPE(
-    ReadHandler,
-    void(boost::system::error_code, std::size_t));
+  async_read_header(Parser& parser, ReadHandler&& handler) & ->
+    typename boost::asio::async_result<std::decay_t<ReadHandler>,
+                                       void(boost::system::error_code, std::size_t)>::return_type;
 
   template <class Parser, class ReadHandler>
   auto
-  async_read(Parser& parser, ReadHandler&& handler) & -> BOOST_ASIO_INITFN_RESULT_TYPE(
-    ReadHandler,
-    void(boost::system::error_code, std::size_t));
+  async_read(Parser& parser, ReadHandler&& handler) & ->
+    typename boost::asio::async_result<std::decay_t<ReadHandler>,
+                                       void(boost::system::error_code, std::size_t)>::return_type;
 
   template <class Serializer, class WriteHandler>
   auto
-  async_write_header(
-    Serializer&    serializer,
-    WriteHandler&& handler) & -> BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
-                                                               void(boost::system::error_code,
-                                                                    std::size_t));
+  async_write_header(Serializer& serializer, WriteHandler&& handler) & ->
+    typename boost::asio::async_result<std::decay_t<WriteHandler>,
+                                       void(boost::system::error_code, std::size_t)>::return_type;
 
   template <class Serializer, class WriteHandler>
   auto
-  async_write(Serializer& serializer, WriteHandler&& handler) & -> BOOST_ASIO_INITFN_RESULT_TYPE(
-    WriteHandler,
-    void(boost::system::error_code, std::size_t));
+  async_write(Serializer& serializer, WriteHandler&& handler) & ->
+    typename boost::asio::async_result<std::decay_t<WriteHandler>,
+                                       void(boost::system::error_code, std::size_t)>::return_type;
 };
 
-using session = basic_session<boost::asio::ip::tcp::socket>;
+using session = basic_session<boost::beast::tcp_stream>;
 
 } // namespace foxy
 

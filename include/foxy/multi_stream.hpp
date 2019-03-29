@@ -15,10 +15,11 @@
 #include <boost/asio/io_context.hpp>
 
 #include <boost/asio/ip/tcp.hpp>
-#include <boost/beast/core/type_traits.hpp>
-
 #include <boost/asio/ssl/context.hpp>
-#include <boost/beast/experimental/core/ssl_stream.hpp>
+
+#include <boost/beast/ssl/ssl_stream.hpp>
+#include <boost/beast/core/tcp_stream.hpp>
+#include <boost/beast/core/stream_traits.hpp>
 
 #include <utility>
 #include <type_traits>
@@ -133,7 +134,7 @@ basic_multi_stream<Stream, X>::get_executor() -> boost::asio::io_context::execut
   return boost::variant2::visit([](auto& stream) { return stream.get_executor(); }, stream_);
 }
 
-using multi_stream = basic_multi_stream<boost::asio::ip::tcp::socket>;
+using multi_stream = basic_multi_stream<boost::beast::tcp_stream>;
 
 } // namespace foxy
 
